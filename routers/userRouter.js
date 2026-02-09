@@ -10,7 +10,7 @@ const {
 const router = express.Router();
 
 // CREATE - Add new user
-router.post("/", addUser);
+router.post("/add", addUser);
 
 // READ - Get all users
 router.get("/", getUsers);

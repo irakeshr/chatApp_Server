@@ -7,6 +7,7 @@ const createTableQuery = `
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     phone VARCHAR(20),
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   )
@@ -27,9 +28,9 @@ const initializeTable = async () => {
 // CREATE - Insert new user
 const createUser = async (userData) => {
   try {
-    const { name, email, phone } = userData;
-    const query = "INSERT INTO users_data (name, email, phone) VALUES (?, ?, ?)";
-    const [result] = await pool.query(query, [name, email, phone]);
+    const { name, email, phone, password } = userData;
+    const query = "INSERT INTO users_data (name, email, phone, password) VALUES (?, ?, ?, ?)";
+    const [result] = await pool.query(query, [name, email, phone, password]);
     return result;
   } catch (error) {
     throw error;
@@ -61,9 +62,9 @@ const getUserById = async (id) => {
 // UPDATE - Update user by ID
 const updateUser = async (id, userData) => {
   try {
-    const { name, email, phone } = userData;
-    const query = "UPDATE users_data SET name = ?, email = ?, phone = ? WHERE id = ?";
-    const [result] = await pool.query(query, [name, email, phone, id]);
+    const { name, email, phone, password } = userData;
+    const query = "UPDATE users_data SET name = ?, email = ?, phone = ?, password = ? WHERE id = ?";
+    const [result] = await pool.query(query, [name, email, phone, password, id]);
     return result;
   } catch (error) {
     throw error;
