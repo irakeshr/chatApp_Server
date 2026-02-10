@@ -16,6 +16,13 @@ const handleSocket = (io) => {
             io.emit("message_deleted", data);
         });
 
+        // Handle message edit event
+        socket.on("edit_message", (data) => {
+            console.log("Message edited:", data);
+            // Broadcast the edit to all connected clients
+            io.emit("message_edited", data);
+        });
+
         // Handle disconnect
         socket.on("disconnect", () => {
             console.log("User disconnected:", socket.id);
